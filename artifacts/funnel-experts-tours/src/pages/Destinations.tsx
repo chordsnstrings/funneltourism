@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SEO } from "@/components/SEO";
 
 export default function Destinations() {
   const destinations = [
@@ -30,6 +31,7 @@ export default function Destinations() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEO title="Destinations" description="Explore our UAE destinations — Dubai, Fujairah & Ras Al Khaimah. From desert dunes to mountain peaks, discover the best the Emirates have to offer." />
       <Navbar />
       
       <div className="pt-40 pb-16 bg-[#050505] border-b border-white/5 relative">

@@ -95,7 +95,7 @@ export function PackageCard({ pkg, index = 0, featured = false }: PackageCardPro
             href={`/packages/${pkg.slug}`}
             className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white group-hover:bg-gold-500 group-hover:text-background group-hover:border-gold-500 transition-all duration-300"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinelinejoin="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14"></path>
               <path d="m12 5 7 7-7 7"></path>
             </svg>

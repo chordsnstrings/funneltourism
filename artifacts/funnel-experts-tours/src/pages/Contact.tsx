@@ -2,11 +2,13 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LeadForm } from "@/components/LeadForm";
+import { SEO } from "@/components/SEO";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 export default function Contact() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEO title="Contact Us" description="Get in touch with Funnel Experts Tours. Plan your luxury UAE experience today. Office in Production City, Dubai. Available 24/7 for VIP clients." />
       <Navbar />
       
       <div className="pt-40 pb-16 relative bg-[#050505] border-b border-white/5">

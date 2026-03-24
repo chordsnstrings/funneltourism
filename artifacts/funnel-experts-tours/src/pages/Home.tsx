@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useListPackages } from "@workspace/api-client-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PackageCard } from "@/components/PackageCard";
+import { SEO } from "@/components/SEO";
 import { ArrowRight, Star, Shield, Map, Clock } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -16,6 +17,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEO />
       <Navbar />
 
       {/* HERO SECTION */}

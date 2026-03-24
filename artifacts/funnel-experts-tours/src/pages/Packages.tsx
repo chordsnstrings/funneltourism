@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { useListPackages } from "@workspace/api-client-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PackageCard } from "@/components/PackageCard";
+import { SEO } from "@/components/SEO";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import type { ListPackagesCategory, ListPackagesDestination } from "@workspace/api-client-react/src/generated/api.schemas";
@@ -42,6 +43,7 @@ export default function Packages() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEO title="Tour Packages" description="Browse our curated collection of luxury UAE tour packages. Desert safaris, city tours, adventure experiences across Dubai, Fujairah & Ras Al Khaimah." keywords="UAE tour packages, Dubai tours, desert safari, Fujairah tours, RAK tours" />
       <Navbar />
       
       {/* HEADER */}

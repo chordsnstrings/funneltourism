@@ -1,8 +1,8 @@
-# Workspace
+# Funnel Experts Tours UAE
 
 ## Overview
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+Full-stack UAE tour operator website for **Funnel Experts Tours & Travel LLC**. Features a luxury dark-themed design with gold accents, 12 tour packages across Dubai, Fujairah, and RAK, a booking/lead capture system, and an admin dashboard for lead management.
 
 ## Stack
 
@@ -10,87 +10,68 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **Node.js version**: 24
 - **Package manager**: pnpm
 - **TypeScript version**: 5.9
+- **Frontend**: React + Vite + Tailwind CSS v4 + Framer Motion
 - **API framework**: Express 5
 - **Database**: PostgreSQL + Drizzle ORM
 - **Validation**: Zod (`zod/v4`), `drizzle-zod`
 - **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (CJS bundle)
+- **Build**: esbuild (API server), Vite (frontend)
 
 ## Structure
 
 ```text
 artifacts-monorepo/
-├── artifacts/              # Deployable applications
-│   └── api-server/         # Express API server
-├── lib/                    # Shared libraries
-│   ├── api-spec/           # OpenAPI spec + Orval codegen config
-│   ├── api-client-react/   # Generated React Query hooks
-│   ├── api-zod/            # Generated Zod schemas from OpenAPI
-│   └── db/                 # Drizzle ORM schema + DB connection
-├── scripts/                # Utility scripts (single workspace package)
-│   └── src/                # Individual .ts scripts, run via `pnpm --filter @workspace/scripts run <script>`
-├── pnpm-workspace.yaml     # pnpm workspace (artifacts/*, lib/*, lib/integrations/*, scripts)
-├── tsconfig.base.json      # Shared TS options (composite, bundler resolution, es2022)
-├── tsconfig.json           # Root TS project references
-└── package.json            # Root package with hoisted devDeps
+├── artifacts/
+│   ├── api-server/           # Express API server (leads + packages)
+│   ├── funnel-experts-tours/ # React + Vite frontend (luxury tour website)
+│   └── mockup-sandbox/       # Design sandbox (not production)
+├── lib/
+│   ├── api-spec/             # OpenAPI spec + Orval codegen config
+│   ├── api-client-react/     # Generated React Query hooks
+│   ├── api-zod/              # Generated Zod schemas from OpenAPI
+│   └── db/                   # Drizzle ORM schema + DB connection
+├── scripts/
+│   └── src/seed-packages.ts  # Seed script for tour packages
+└── attached_assets/          # Source assets (logo, etc.)
 ```
 
-## TypeScript & Composite Projects
+## Pages
 
-Every package extends `tsconfig.base.json` which sets `composite: true`. The root `tsconfig.json` lists all packages as project references. This means:
+- **Home** (`/`) — Hero, featured packages, why choose us, CTA
+- **Packages** (`/packages`) — Filterable grid by destination & category
+- **Package Detail** (`/packages/:slug`) — Full details, itinerary, booking form
+- **Destinations** (`/destinations`) — Dubai, Fujairah, RAK overviews
+- **About** (`/about`) — Company story, values
+- **Contact** (`/contact`) — Contact form + office info
+- **Admin** (`/admin/leads`) — Password-protected leads dashboard (password: admin123)
 
-- **Always typecheck from the root** — run `pnpm run typecheck` (which runs `tsc --build --emitDeclarationOnly`). This builds the full dependency graph so that cross-package imports resolve correctly. Running `tsc` inside a single package will fail if its dependencies haven't been built yet.
-- **`emitDeclarationOnly`** — we only emit `.d.ts` files during typecheck; actual JS bundling is handled by esbuild/tsx/vite...etc, not `tsc`.
-- **Project references** — when package A depends on package B, A's `tsconfig.json` must list B in its `references` array. `tsc --build` uses this to determine build order and skip up-to-date packages.
+## API Endpoints
 
-## Root Scripts
+- `GET /api/healthz` — Health check
+- `GET /api/packages` — List packages (filters: `?destination=dubai|fujairah|rak&category=desert|city|adventure|cultural|nightlife`)
+- `GET /api/packages/:slug` — Single package detail
+- `POST /api/leads` — Submit booking inquiry
+- `GET /api/leads` — List leads (admin, filter: `?status=new|contacted|converted|closed`)
+- `PATCH /api/leads/:id` — Update lead status
 
-- `pnpm run build` — runs `typecheck` first, then recursively runs `build` in all packages that define it
-- `pnpm run typecheck` — runs `tsc --build --emitDeclarationOnly` using project references
+## Database Tables
 
-## Packages
+- **packages** — Tour packages with SEO metadata, pricing, itineraries, highlights
+- **leads** — Customer inquiries with status tracking (new → contacted → converted → closed)
 
-### `artifacts/api-server` (`@workspace/api-server`)
+## Brand
 
-Express 5 API server. Routes live in `src/routes/` and use `@workspace/api-zod` for request and response validation and `@workspace/db` for persistence.
+- **Company**: Funnel Experts Tours & Travel LLC
+- **Logo**: Gold Burj Khalifa silhouette with 'fe' text (`public/logo.png`)
+- **Office**: Galadari Building B-16 IMPZ, Office 403, 4th Floor, Production City, Dubai, UAE. P.O Box: 111743
+- **Phone**: +971 52 123 4567
+- **Email**: info@funnelexpertstours.ae
 
-- Entry: `src/index.ts` — reads `PORT`, starts Express
-- App setup: `src/app.ts` — mounts CORS, JSON/urlencoded parsing, routes at `/api`
-- Routes: `src/routes/index.ts` mounts sub-routers; `src/routes/health.ts` exposes `GET /health` (full path: `/api/health`)
-- Depends on: `@workspace/db`, `@workspace/api-zod`
-- `pnpm --filter @workspace/api-server run dev` — run the dev server
-- `pnpm --filter @workspace/api-server run build` — production esbuild bundle (`dist/index.cjs`)
-- Build bundles an allowlist of deps (express, cors, pg, drizzle-orm, zod, etc.) and externalizes the rest
+## Commands
 
-### `lib/db` (`@workspace/db`)
-
-Database layer using Drizzle ORM with PostgreSQL. Exports a Drizzle client instance and schema models.
-
-- `src/index.ts` — creates a `Pool` + Drizzle instance, exports schema
-- `src/schema/index.ts` — barrel re-export of all models
-- `src/schema/<modelname>.ts` — table definitions with `drizzle-zod` insert schemas (no models definitions exist right now)
-- `drizzle.config.ts` — Drizzle Kit config (requires `DATABASE_URL`, automatically provided by Replit)
-- Exports: `.` (pool, db, schema), `./schema` (schema only)
-
-Production migrations are handled by Replit when publishing. In development, we just use `pnpm --filter @workspace/db run push`, and we fallback to `pnpm --filter @workspace/db run push-force`.
-
-### `lib/api-spec` (`@workspace/api-spec`)
-
-Owns the OpenAPI 3.1 spec (`openapi.yaml`) and the Orval config (`orval.config.ts`). Running codegen produces output into two sibling packages:
-
-1. `lib/api-client-react/src/generated/` — React Query hooks + fetch client
-2. `lib/api-zod/src/generated/` — Zod schemas
-
-Run codegen: `pnpm --filter @workspace/api-spec run codegen`
-
-### `lib/api-zod` (`@workspace/api-zod`)
-
-Generated Zod schemas from the OpenAPI spec (e.g. `HealthCheckResponse`). Used by `api-server` for response validation.
-
-### `lib/api-client-react` (`@workspace/api-client-react`)
-
-Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHealthCheck`, `healthCheck`).
-
-### `scripts` (`@workspace/scripts`)
-
-Utility scripts package. Each script is a `.ts` file in `src/` with a corresponding npm script in `package.json`. Run scripts via `pnpm --filter @workspace/scripts run <script>`. Scripts can import any workspace package (e.g., `@workspace/db`) by adding it as a dependency in `scripts/package.json`.
+- `pnpm run typecheck` — Full typecheck
+- `pnpm --filter @workspace/api-server run dev` — Start API server
+- `pnpm --filter @workspace/funnel-experts-tours run dev` — Start frontend
+- `pnpm --filter @workspace/api-spec run codegen` — Regenerate API hooks/schemas
+- `pnpm --filter @workspace/db run push` — Push DB schema changes
+- `pnpm --filter @workspace/scripts run seed-packages` — Seed tour packages

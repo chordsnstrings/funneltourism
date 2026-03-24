@@ -3,6 +3,7 @@ import { useGetPackage } from "@workspace/api-client-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LeadForm } from "@/components/LeadForm";
+import { SEO } from "@/components/SEO";
 import { Clock, MapPin, Users, Check, X, Star } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
@@ -45,6 +46,12 @@ export default function PackageDetail() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEO 
+        title={pkg.name}
+        description={pkg.seoDescription || pkg.tagline}
+        keywords={pkg.seoKeywords || undefined}
+        image={heroImg}
+      />
       <Navbar />
       
       {/* HERO */}

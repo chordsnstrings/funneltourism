@@ -1,11 +1,13 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SEO } from "@/components/SEO";
 import { Award, Heart, Globe } from "lucide-react";
 
 export default function About() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEO title="About Us" description="Funnel Experts Tours & Travel LLC — a premier luxury travel boutique in the UAE. Discover our story, values, and commitment to Arabian hospitality." />
       <Navbar />
       
       <div className="pt-40 pb-24 relative overflow-hidden">
