@@ -18,14 +18,14 @@ export default function Destinations() {
       name: "Fujairah",
       tagline: "The East Coast Jewel",
       description: "Escape to the tranquil eastern coast where the rugged Hajar Mountains meet the pristine waters of the Gulf of Oman. Perfect for diving, historic forts, and serene beach resorts.",
-      image: "https://images.unsplash.com/photo-1579899182390-e69623e100f7?w=1600&q=80"
+      image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80"
     },
     {
       id: "rak",
       name: "Ras Al Khaimah",
       tagline: "The Nature Emirate",
       description: "Discover authentic Arabian heritage and dramatic landscapes. Home to the UAE's highest peak, Jebel Jais, offering world-class hiking, ziplining, and mountain adventures.",
-      image: "https://images.unsplash.com/photo-1628185012586-7a1362eeb62f?w=1600&q=80"
+      image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80"
     }
   ];
 
@@ -34,7 +34,9 @@ export default function Destinations() {
       <SEO title="Destinations" description="Explore our UAE destinations — Dubai, Fujairah & Ras Al Khaimah. From desert dunes to mountain peaks, discover the best the Emirates have to offer." />
       <Navbar />
       
-      <div className="pt-40 pb-16 bg-[#050505] border-b border-white/5 relative">
+      <div className="pt-40 pb-16 bg-[#050505] border-b border-white/5 relative overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-15" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-background" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <SectionHeading 
             subtitle="Discover The Emirates" 
@@ -55,6 +57,7 @@ export default function Destinations() {
                     src={dest.image} 
                     alt={dest.name} 
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    loading="lazy"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gold-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

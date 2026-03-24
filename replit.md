@@ -2,7 +2,7 @@
 
 ## Overview
 
-Full-stack UAE tour operator website for **Funnel Experts Tours & Travel LLC**. Features a luxury dark-themed design with gold accents, 12 tour packages across Dubai, Fujairah, and RAK, a booking/lead capture system, and an admin dashboard for lead management.
+Full-stack UAE tour operator website for **Funnel Experts Tours & Travel LLC**. Features a luxury dark-themed design with gold accents, 14 tour packages across Dubai, Fujairah, and RAK (including 2 official partner packages: Skydive Dubai & Bounce X Dubai), a booking/lead capture system, an admin dashboard for lead management, and SEO-optimized content with Open Graph/Twitter Card meta tags.
 
 ## Stack
 
@@ -37,7 +37,7 @@ artifacts-monorepo/
 
 ## Pages
 
-- **Home** (`/`) — Hero, featured packages, why choose us, CTA
+- **Home** (`/`) — Hero with Burj Khalifa background, featured packages, Official Partners section (Skydive Dubai & Bounce X), why choose us, CTA
 - **Packages** (`/packages`) — Filterable grid by destination & category
 - **Package Detail** (`/packages/:slug`) — Full details, itinerary, booking form
 - **Destinations** (`/destinations`) — Dubai, Fujairah, RAK overviews

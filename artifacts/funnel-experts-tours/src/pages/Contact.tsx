@@ -11,7 +11,13 @@ export default function Contact() {
       <SEO title="Contact Us" description="Get in touch with Funnel Experts Tours. Plan your luxury UAE experience today. Office in Production City, Dubai. Available 24/7 for VIP clients." />
       <Navbar />
       
-      <div className="pt-40 pb-16 relative bg-[#050505] border-b border-white/5">
+      <div className="pt-40 pb-16 relative bg-[#050505] border-b border-white/5 overflow-hidden">
+        <img 
+          src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1600&q=80" 
+          alt="Dubai skyline" 
+          className="absolute inset-0 w-full h-full object-cover opacity-15"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-background" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <SectionHeading 
             subtitle="Get In Touch" 
@@ -78,6 +84,19 @@ export default function Contact() {
                   <p className="text-gray-400 font-light">Monday - Saturday: 9:00 AM - 6:00 PM</p>
                   <p className="text-gray-400 font-light">Sunday: Closed</p>
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-12 relative aspect-[16/9] overflow-hidden border border-white/10">
+              <img 
+                src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80" 
+                alt="Dubai Production City area" 
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+              <div className="absolute bottom-4 left-4 text-white text-sm font-medium">
+                Production City, Dubai
               </div>
             </div>
           </div>

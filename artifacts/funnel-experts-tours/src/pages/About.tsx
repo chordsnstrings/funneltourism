@@ -11,7 +11,8 @@ export default function About() {
       <Navbar />
       
       <div className="pt-40 pb-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/pattern-bg.png')] opacity-10 z-0"></div>
+        <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-15" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-background" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <SectionHeading 
             subtitle="Our Story" 

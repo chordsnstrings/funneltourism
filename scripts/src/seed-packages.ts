@@ -536,7 +536,7 @@ const packages = [
   // ==================== RAK PACKAGES ====================
   {
     slug: "rak-jebel-jais-zipline-adventure",
-    imageUrl: "https://images.unsplash.com/photo-1628185012586-7a1362eeb62f?w=1200&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80",
     name: "Ras Al Khaimah Jebel Jais Adventure",
     tagline: "Conquer the World's Longest Zipline at 1,680m Altitude",
     description: "Challenge yourself on Jebel Jais — the UAE's highest peak at 1,934 meters — home to the world's longest zipline at 2.83 kilometers. This epic RAK adventure takes you soaring over dramatic mountain canyons at speeds of up to 120 km/h, with jaw-dropping views of jagged peaks, deep wadis, and the distant Arabian Gulf. The ultimate UAE bucket-list experience for the truly adventurous.",
@@ -708,6 +708,119 @@ const packages = [
     seoTitle: "Ras Al Khaimah Heritage City Tour 2025 | Dhayah Fort & Museums | Funnel Experts Tours",
     seoDescription: "Explore Ras Al Khaimah's 7,000-year history. Dhayah Fort, National Museum, mangrove kayaking & authentic Emirati culture. From AED 299. Book today!",
     seoKeywords: "Ras Al Khaimah tour, RAK heritage tour, Dhayah Fort, RAK city tour, mangrove kayaking RAK, RAK museum tour, UAE heritage tour"
+  },
+
+  // ==================== PARTNER PACKAGES ====================
+  {
+    slug: "dubai-skydive-dubai-tandem",
+    imageUrl: "https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=1200&q=80",
+    name: "Skydive Dubai — Tandem Jump Experience",
+    tagline: "Freefall Over the Palm Jumeirah at 13,000 Feet",
+    description: "Experience the ultimate adrenaline rush with our official Skydive Dubai partnership. Leap from 13,000 feet and freefall at 120 mph over the iconic Palm Jumeirah, with Dubai's stunning skyline, turquoise waters, and golden desert as your backdrop. This tandem skydive is the #1 bucket-list activity in Dubai — an unforgettable, life-changing experience guided by world-class USPA-certified instructors.",
+    destination: "dubai",
+    category: "adventure",
+    duration: "4 hours (7:00 AM – 11:00 AM)",
+    price: 1999,
+    currency: "AED",
+    maxGroupSize: 6,
+    highlights: [
+      "Freefall from 13,000 feet at 120 mph",
+      "Breathtaking views of Palm Jumeirah from above",
+      "Tandem jump with USPA-certified instructor",
+      "60-second freefall followed by 5-minute canopy ride",
+      "HD video and photos of your entire jump",
+      "Certificate of completion",
+      "Views of Burj Al Arab, Atlantis & World Islands"
+    ],
+    includes: [
+      "Hotel pickup & drop-off (Dubai)",
+      "Safety briefing and ground training",
+      "All skydive equipment and gear",
+      "Tandem jump with certified instructor",
+      "HD GoPro video & professional photos",
+      "Certificate of achievement",
+      "Refreshments after landing",
+      "VIP lounge access at Skydive Dubai"
+    ],
+    excludes: [
+      "Personal insurance (recommended)",
+      "Gratuities",
+      "Food and beverages (beyond refreshments)",
+      "Additional camera/video packages"
+    ],
+    itinerary: [
+      "7:00 AM – VIP pickup from your hotel",
+      "7:45 AM – Arrive at Skydive Dubai Palm drop zone",
+      "8:00 AM – Safety briefing and harness fitting",
+      "8:30 AM – Board aircraft and ascend to 13,000 feet",
+      "8:50 AM – Tandem freefall over Palm Jumeirah",
+      "9:00 AM – Canopy glide and beach landing",
+      "9:30 AM – Review HD footage & receive certificate",
+      "10:30 AM – Hotel drop-off"
+    ],
+    badge: "Partner Exclusive",
+    isPopular: true,
+    isFeatured: true,
+    rating: 4.9,
+    reviewCount: 1823,
+    seoTitle: "Skydive Dubai Tandem Jump | Official Partner | Funnel Experts Tours",
+    seoDescription: "Book your Skydive Dubai tandem jump through our official partnership. Freefall over Palm Jumeirah at 13,000 ft. VIP pickup, HD video & photos included. From AED 1,999.",
+    seoKeywords: "Skydive Dubai, tandem skydive Dubai, skydiving Palm Jumeirah, Dubai skydive booking, Skydive Dubai price, Dubai adventure activities"
+  },
+  {
+    slug: "dubai-bounce-x-adventure",
+    imageUrl: "https://images.unsplash.com/photo-1570691079236-4bca6c45d440?w=1200&q=80",
+    name: "Bounce X Dubai — Ultimate Indoor Adventure",
+    tagline: "The Middle East's Most Thrilling Indoor Playground",
+    description: "Get ready for non-stop action at Bounce X Dubai, the region's most exciting indoor adventure park. Our exclusive partnership gives you VIP access to over 100 interconnected trampolines, ninja warrior courses, climbing walls, slam dunk zones, and the famous X-Park obstacle course. Perfect for families, groups, and adrenaline seekers of all ages — all in a fully climate-controlled environment.",
+    destination: "dubai",
+    category: "adventure",
+    duration: "3 hours (Flexible timing)",
+    price: 199,
+    currency: "AED",
+    maxGroupSize: 30,
+    highlights: [
+      "100+ interconnected trampolines",
+      "X-Park ninja warrior obstacle course",
+      "Rock climbing walls for all levels",
+      "Basketball slam dunk trampolines",
+      "Foam pit with aerial tricks",
+      "Dodgeball arena",
+      "Kid-friendly zones for ages 3+",
+      "Climate-controlled indoor venue"
+    ],
+    includes: [
+      "Hotel pickup & drop-off (Dubai)",
+      "VIP fast-track entry — skip the queue",
+      "2-hour unlimited bounce session",
+      "Grip socks included",
+      "Access to all zones and attractions",
+      "Professional supervision",
+      "Water and refreshments",
+      "Dedicated group coordinator"
+    ],
+    excludes: [
+      "Personal insurance",
+      "Gratuities",
+      "Food (cafe available on-site)",
+      "Extended session add-ons"
+    ],
+    itinerary: [
+      "Flexible pickup from your hotel",
+      "Arrive at Bounce X Dubai — VIP check-in",
+      "Safety briefing and grip sock fitting",
+      "2 hours of unlimited bouncing and adventure",
+      "Cool-down with refreshments",
+      "Hotel drop-off"
+    ],
+    badge: "Partner Exclusive",
+    isPopular: true,
+    isFeatured: true,
+    rating: 4.7,
+    reviewCount: 2156,
+    seoTitle: "Bounce X Dubai VIP Access | Official Partner | Funnel Experts Tours",
+    seoDescription: "Book Bounce X Dubai with VIP access through our official partnership. 100+ trampolines, ninja courses, climbing walls. Hotel pickup included. From AED 199.",
+    seoKeywords: "Bounce X Dubai, Bounce Dubai, trampoline park Dubai, indoor adventure Dubai, Dubai family activities, Bounce X booking"
   }
 ];
 
