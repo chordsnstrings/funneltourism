@@ -70,10 +70,14 @@ export function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-6">
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-end gap-0.5">
               <a href="tel:+971556710308" className="text-sm font-medium hover:text-gold-500 transition-colors flex items-center gap-2">
                 <Phone className="w-4 h-4 text-gold-500" />
                 +971 55 671 0308
+              </a>
+              <a href="tel:+97145667208" className="text-xs text-gray-400 hover:text-gold-500 transition-colors flex items-center gap-2">
+                <Phone className="w-3 h-3 text-gold-500/70" />
+                04 566 7208
               </a>
             </div>
             <Link 
@@ -136,6 +140,10 @@ export function Navbar() {
                 <a href="tel:+971556710308" className="flex items-center gap-3 text-gray-400">
                   <Phone className="w-5 h-5 text-gold-500" />
                   +971 55 671 0308
+                </a>
+                <a href="tel:+97145667208" className="flex items-center gap-3 text-gray-400">
+                  <Phone className="w-5 h-5 text-gold-500" />
+                  04 566 7208
                 </a>
                 <a href="mailto:info@funnelexpertstours.ae" className="flex items-center gap-3 text-gray-400">
                   <Mail className="w-5 h-5 text-gold-500" />

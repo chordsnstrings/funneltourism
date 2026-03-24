@@ -71,6 +71,10 @@ export function Footer() {
                 <a href="tel:+971556710308" className="text-gray-400 hover:text-white transition-colors text-sm">+971 55 671 0308</a>
               </li>
               <li className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-gold-500 shrink-0" />
+                <a href="tel:+97145667208" className="text-gray-400 hover:text-white transition-colors text-sm">04 566 7208</a>
+              </li>
+              <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-gold-500 shrink-0" />
                 <a href="mailto:info@funnelexpertstours.ae" className="text-gray-400 hover:text-white transition-colors text-sm">info@funnelexpertstours.ae</a>
               </li>
