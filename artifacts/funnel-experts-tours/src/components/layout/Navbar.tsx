@@ -102,7 +102,7 @@ export function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "tween", duration: 0.4 }}
-            className="fixed inset-0 z-[60] bg-background border-l border-white/10 flex flex-col"
+            className="fixed inset-0 z-[60] bg-sidebar border-l border-sidebar-border flex flex-col"
           >
             <div className="p-6 flex justify-end">
               <button

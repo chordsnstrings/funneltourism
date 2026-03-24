@@ -38,6 +38,15 @@
   --color-gold-500: hsl(44 54% 54%);
   --color-gold-600: hsl(44 60% 40%);
   --color-gold-900: hsl(44 70% 15%);
+
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
 }
 
 /* FORCED DARK LUXURY THEME */
@@ -73,6 +82,15 @@
   --ring: 44 54% 54%;
 
   --radius: 0rem; /* Sharp edges for luxury feel */
+
+  --sidebar: 240 10% 5%;
+  --sidebar-foreground: 0 0% 95%;
+  --sidebar-primary: 44 54% 54%;
+  --sidebar-primary-foreground: 240 10% 4%;
+  --sidebar-accent: 240 5% 12%;
+  --sidebar-accent-foreground: 0 0% 98%;
+  --sidebar-border: 240 5% 15%;
+  --sidebar-ring: 44 54% 54%;
 }
 
 @layer base {
