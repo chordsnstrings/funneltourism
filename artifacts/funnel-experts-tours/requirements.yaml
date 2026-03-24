@@ -1,0 +1,19 @@
+packages:
+  "framer-motion": "For high-end micro-animations and page transitions"
+  "react-hook-form": "For robust booking form state management"
+  "@hookform/resolvers": "For form validation integration"
+  "date-fns": "For formatting travel dates in the UI and admin panel"
+  "clsx": "Utility for conditional classes"
+  "tailwind-merge": "Utility for merging tailwind classes"
+
+images:
+  - path: "artifacts/funnel-experts-tours/public/images/hero-texture.png"
+    description: "Dark moody abstract background with subtle fine gold dust and cinematic lighting, extreme luxury feel, almost completely black with faint golden glowing accents"
+    aspect_ratio: "16:9"
+  - path: "artifacts/funnel-experts-tours/public/images/pattern-bg.png"
+    description: "Seamless luxury geometric pattern in dark charcoal and very subtle faint gold lines, art deco inspired but minimal and modern"
+    aspect_ratio: "1:1"
+
+notes:
+  - Using @workspace/api-client-react for data fetching as instructed
+  - Forcing dark theme globally for the luxury aesthetic

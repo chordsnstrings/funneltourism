@@ -1,15 +1,18 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Funnel Experts Tours UAE - API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: leads
+    description: Lead/booking inquiry management
+  - name: packages
+    description: Tour packages
 paths:
   /healthz:
     get:
@@ -24,6 +27,159 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /leads:
+    post:
+      operationId: createLead
+      tags: [leads]
+      summary: Submit a booking inquiry / lead
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLeadBody"
+      responses:
+        "201":
+          description: Lead created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lead"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    get:
+      operationId: listLeads
+      tags: [leads]
+      summary: List all leads (admin)
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [new, contacted, converted, closed]
+          required: false
+        - in: query
+          name: limit
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: offset
+          schema:
+            type: number
+          required: false
+      responses:
+        "200":
+          description: List of leads
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeadsListResponse"
+
+  /leads/{id}:
+    get:
+      operationId: getLead
+      tags: [leads]
+      summary: Get a single lead
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: Lead
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lead"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateLeadStatus
+      tags: [leads]
+      summary: Update lead status
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLeadStatusBody"
+      responses:
+        "200":
+          description: Updated lead
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lead"
+
+  /packages:
+    get:
+      operationId: listPackages
+      tags: [packages]
+      summary: List all tour packages
+      parameters:
+        - in: query
+          name: destination
+          schema:
+            type: string
+            enum: [dubai, fujairah, rak, all]
+          required: false
+        - in: query
+          name: category
+          schema:
+            type: string
+            enum: [desert, city, adventure, cultural, nightlife, all]
+          required: false
+      responses:
+        "200":
+          description: List of packages
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PackagesListResponse"
+
+  /packages/{slug}:
+    get:
+      operationId: getPackage
+      tags: [packages]
+      summary: Get a single package by slug
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: Package
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Package"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +190,240 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+        - error
+
+    CreateLeadBody:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 100
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          minLength: 7
+          maxLength: 20
+        packageId:
+          type: integer
+          nullable: true
+        packageName:
+          type: string
+          nullable: true
+        destination:
+          type: string
+          nullable: true
+        travelDate:
+          type: string
+          nullable: true
+        groupSize:
+          type: integer
+          minimum: 1
+          nullable: true
+        message:
+          type: string
+          maxLength: 1000
+          nullable: true
+        source:
+          type: string
+          nullable: true
+      required:
+        - name
+        - email
+        - phone
+
+    UpdateLeadStatusBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [new, contacted, converted, closed]
+        notes:
+          type: string
+          nullable: true
+      required:
+        - status
+
+    Lead:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        packageId:
+          type: integer
+          nullable: true
+        packageName:
+          type: string
+          nullable: true
+        destination:
+          type: string
+          nullable: true
+        travelDate:
+          type: string
+          nullable: true
+        groupSize:
+          type: integer
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        source:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [new, contacted, converted, closed]
+        notes:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - email
+        - phone
+        - status
+        - createdAt
+        - updatedAt
+
+    LeadsListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Lead"
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+      required:
+        - data
+        - total
+        - limit
+        - offset
+
+    Package:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        name:
+          type: string
+        tagline:
+          type: string
+        description:
+          type: string
+        destination:
+          type: string
+        category:
+          type: string
+        duration:
+          type: string
+        price:
+          type: number
+        currency:
+          type: string
+        maxGroupSize:
+          type: integer
+        highlights:
+          type: array
+          items:
+            type: string
+        includes:
+          type: array
+          items:
+            type: string
+        excludes:
+          type: array
+          items:
+            type: string
+        itinerary:
+          type: array
+          items:
+            type: string
+        imageUrl:
+          type: string
+          nullable: true
+        badge:
+          type: string
+          nullable: true
+        isPopular:
+          type: boolean
+        isFeatured:
+          type: boolean
+        rating:
+          type: number
+        reviewCount:
+          type: integer
+        seoTitle:
+          type: string
+        seoDescription:
+          type: string
+        seoKeywords:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - slug
+        - name
+        - tagline
+        - description
+        - destination
+        - category
+        - duration
+        - price
+        - currency
+        - maxGroupSize
+        - highlights
+        - includes
+        - excludes
+        - itinerary
+        - isPopular
+        - isFeatured
+        - rating
+        - reviewCount
+        - seoTitle
+        - seoDescription
+        - seoKeywords
+        - createdAt
+
+    PackagesListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Package"
+        total:
+          type: integer
+      required:
+        - data
+        - total
