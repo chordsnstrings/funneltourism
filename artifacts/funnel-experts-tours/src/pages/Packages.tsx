@@ -6,7 +6,7 @@ import { PackageCard } from "@/components/PackageCard";
 import { SEO } from "@/components/SEO";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import type { ListPackagesCategory, ListPackagesDestination } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { ListPackagesCategory, ListPackagesDestination } from "@workspace/api-client-react";
 
 export default function Packages() {
   const [location] = useLocation();

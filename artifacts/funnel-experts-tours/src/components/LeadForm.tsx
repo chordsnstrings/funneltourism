@@ -5,7 +5,7 @@ import { z } from "zod";
 import { useCreateLead } from "@workspace/api-client-react";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import type { Package } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { Package } from "@workspace/api-client-react";
 
 // Matching schema requirements from OpenAPI
 const formSchema = z.object({

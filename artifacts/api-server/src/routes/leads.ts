@@ -5,10 +5,12 @@ import {
   CreateLeadBody,
   UpdateLeadStatusBody,
 } from "@workspace/api-zod";
+import { adminAuth } from "../middleware/admin-auth";
+import { leadSubmitLimiter } from "../middleware/rate-limit";
 
 const router: IRouter = Router();
 
-router.post("/leads", async (req, res) => {
+router.post("/leads", leadSubmitLimiter, async (req, res) => {
   try {
     const parseResult = CreateLeadBody.safeParse(req.body);
     if (!parseResult.success) {
@@ -37,12 +39,12 @@ router.post("/leads", async (req, res) => {
 
     res.status(201).json(lead);
   } catch (err) {
-    console.error("Error creating lead:", err);
+    req.log.error({ err }, "Error creating lead");
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-router.get("/leads", async (req, res) => {
+router.get("/leads", adminAuth, async (req, res) => {
   try {
     const status = req.query.status as string | undefined;
     const limit = Math.min(Number(req.query.limit) || 50, 200);
@@ -68,14 +70,14 @@ router.get("/leads", async (req, res) => {
 
     res.json({ data, total: Number(total), limit, offset });
   } catch (err) {
-    console.error("Error fetching leads:", err);
+    req.log.error({ err }, "Error fetching leads");
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-router.get("/leads/:id", async (req, res) => {
+router.get("/leads/:id", adminAuth, async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = parseInt(String(req.params.id), 10);
     if (isNaN(id)) {
       res.status(400).json({ error: "Invalid ID" });
       return;
@@ -90,14 +92,14 @@ router.get("/leads/:id", async (req, res) => {
 
     res.json(lead);
   } catch (err) {
-    console.error("Error fetching lead:", err);
+    req.log.error({ err }, "Error fetching lead");
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-router.patch("/leads/:id", async (req, res) => {
+router.patch("/leads/:id", adminAuth, async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = parseInt(String(req.params.id), 10);
     if (isNaN(id)) {
       res.status(400).json({ error: "Invalid ID" });
       return;
@@ -128,7 +130,7 @@ router.patch("/leads/:id", async (req, res) => {
 
     res.json(updated);
   } catch (err) {
-    console.error("Error updating lead:", err);
+    req.log.error({ err }, "Error updating lead");
     res.status(500).json({ error: "Internal server error" });
   }
 });

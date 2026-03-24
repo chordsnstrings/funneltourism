@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Clock, Users, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
-import type { Package } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { Package } from "@workspace/api-client-react";
 import { cn } from "@/lib/utils";
 
 interface PackageCardProps {
