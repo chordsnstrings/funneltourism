@@ -44,7 +44,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1 uppercase tracking-wider text-sm">Direct Line</h4>
-                  <p className="text-gray-400 font-light">+971 52 123 4567</p>
+                  <p className="text-gray-400 font-light">+971 55 671 0308</p>
                   <p className="text-xs text-gray-500 mt-1">Available 24/7 for VIP clients</p>
                 </div>
               </div>
