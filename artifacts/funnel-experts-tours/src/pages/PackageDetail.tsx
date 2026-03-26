@@ -1,5 +1,5 @@
 import { useParams } from "wouter";
-import { useGetPackage } from "@workspace/api-client-react";
+import { getPackageBySlug } from "@/lib/packages-data";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LeadForm } from "@/components/LeadForm";
@@ -9,20 +9,9 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export default function PackageDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { data: pkg, isLoading, isError } = useGetPackage(slug || "");
+  const pkg = getPackageBySlug(slug || "");
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex flex-col">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="w-12 h-12 border-4 border-gold-500/30 border-t-gold-500 rounded-full animate-spin"></div>
-        </div>
-      </div>
-    );
-  }
-
-  if (isError || !pkg) {
+  if (!pkg) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Navbar />
@@ -35,7 +24,6 @@ export default function PackageDetail() {
     );
   }
 
-  // Fallback image logic
   const fallbackImages: Record<string, string> = {
     dubai: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600&q=80",
     fujairah: "https://images.unsplash.com/photo-1579899182390-e69623e100f7?w=1600&q=80",

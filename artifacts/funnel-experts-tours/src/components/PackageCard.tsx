@@ -1,7 +1,7 @@
 import { Link } from "wouter";
-import { Clock, Users, MapPin, Star } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
-import type { Package } from "@workspace/api-client-react";
+import type { Package } from "@/lib/packages-data";
 import { cn } from "@/lib/utils";
 
 interface PackageCardProps {
@@ -11,7 +11,6 @@ interface PackageCardProps {
 }
 
 export function PackageCard({ pkg, index = 0, featured = false }: PackageCardProps) {
-  // Fallback images matching aesthetic
   const fallbackImages: Record<string, string> = {
     dubai: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80",
     fujairah: "https://images.unsplash.com/photo-1579899182390-e69623e100f7?w=800&q=80",
@@ -40,22 +39,18 @@ export function PackageCard({ pkg, index = 0, featured = false }: PackageCardPro
         "relative overflow-hidden",
         featured ? "md:w-1/2 lg:w-3/5" : "aspect-[4/3]"
       )}>
-        {/* Package Badge */}
         {pkg.badge && (
           <div className="absolute top-4 left-4 z-10 bg-gold-500 text-background text-xs font-bold uppercase tracking-wider px-3 py-1 shadow-lg">
             {pkg.badge}
           </div>
         )}
         
-        {/* Category tag */}
         <div className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest px-3 py-1 border border-white/10">
           {pkg.category}
         </div>
 
-        {/* Hover overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-0 opacity-80" />
         
-        {/* Image */}
         <img 
           src={getImageUrl()} 
           alt={pkg.name}

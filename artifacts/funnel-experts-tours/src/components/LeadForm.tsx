@@ -1,18 +1,14 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useCreateLead } from "@workspace/api-client-react";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import type { Package } from "@workspace/api-client-react";
+import type { Package } from "@/lib/packages-data";
 
-// Matching schema requirements from OpenAPI
 const formSchema = z.object({
   name: z.string().min(2, "Name is required").max(100),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(7, "Valid phone required").max(20),
-  packageId: z.number().optional().nullable(),
   packageName: z.string().optional().nullable(),
   travelDate: z.string().optional().nullable(),
   groupSize: z.coerce.number().min(1, "Minimum 1 person").optional().nullable(),
@@ -29,7 +25,6 @@ interface LeadFormProps {
 
 export function LeadForm({ selectedPackage, onSuccess, className }: LeadFormProps) {
   const { toast } = useToast();
-  const createLeadMutation = useCreateLead();
 
   const {
     register,
@@ -39,29 +34,36 @@ export function LeadForm({ selectedPackage, onSuccess, className }: LeadFormProp
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      packageId: selectedPackage?.id || null,
       packageName: selectedPackage?.name || null,
       groupSize: 2,
     },
   });
 
   const onSubmit = async (data: FormValues) => {
-    try {
-      await createLeadMutation.mutateAsync({ data });
-      toast({
-        title: "Inquiry Sent Successfully",
-        description: "Our luxury travel concierge will contact you shortly.",
-        variant: "default",
-      });
-      reset();
-      onSuccess?.();
-    } catch (error) {
-      toast({
-        title: "Submission Failed",
-        description: "Please check your information and try again.",
-        variant: "destructive",
-      });
-    }
+    const pkgName = selectedPackage?.name || data.packageName || "General Inquiry";
+    const lines = [
+      `Hi, I'd like to book a tour!`,
+      ``,
+      `*Package:* ${pkgName}`,
+      `*Name:* ${data.name}`,
+      `*Email:* ${data.email}`,
+      `*Phone:* ${data.phone}`,
+    ];
+    if (data.travelDate) lines.push(`*Travel Date:* ${data.travelDate}`);
+    if (data.groupSize) lines.push(`*Group Size:* ${data.groupSize} guests`);
+    if (data.message) lines.push(`*Special Requests:* ${data.message}`);
+
+    const whatsappNumber = "971556710308";
+    const text = encodeURIComponent(lines.join("\n"));
+    window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
+
+    toast({
+      title: "Redirecting to WhatsApp",
+      description: "Our luxury travel concierge will respond shortly.",
+      variant: "default",
+    });
+    reset();
+    onSuccess?.();
   };
 
   return (
@@ -155,7 +157,7 @@ export function LeadForm({ selectedPackage, onSuccess, className }: LeadFormProp
           {isSubmitting ? (
             <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
-            "Request Booking"
+            "Request Booking via WhatsApp"
           )}
         </button>
       </form>

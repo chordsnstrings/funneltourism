@@ -1,29 +1,21 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
-import { useListPackages } from "@workspace/api-client-react";
+import { getPackages } from "@/lib/packages-data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PackageCard } from "@/components/PackageCard";
 import { SEO } from "@/components/SEO";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import type { ListPackagesCategory, ListPackagesDestination } from "@workspace/api-client-react";
 
 export default function Packages() {
-  const [location] = useLocation();
   const searchParams = new URLSearchParams(window.location.search);
   
-  const initialDestination = (searchParams.get("destination") as ListPackagesDestination) || "all";
-  const initialCategory = (searchParams.get("category") as ListPackagesCategory) || "all";
+  const [destination, setDestination] = useState(searchParams.get("destination") || "all");
+  const [category, setCategory] = useState(searchParams.get("category") || "all");
 
-  const [destination, setDestination] = useState<ListPackagesDestination>(initialDestination);
-  const [category, setCategory] = useState<ListPackagesCategory>(initialCategory);
-
-  const { data: packagesRes, isLoading } = useListPackages({
+  const packages = getPackages({
     destination: destination !== 'all' ? destination : undefined,
     category: category !== 'all' ? category : undefined
   });
-
-  const packages = packagesRes?.data || [];
 
   const destinations = [
     { value: "all", label: "All Emirates" },
@@ -70,7 +62,7 @@ export default function Packages() {
               {destinations.map(d => (
                 <button
                   key={d.value}
-                  onClick={() => setDestination(d.value as ListPackagesDestination)}
+                  onClick={() => setDestination(d.value)}
                   className={`px-4 py-2 text-sm border transition-all ${
                     destination === d.value 
                       ? "border-gold-500 text-gold-500 bg-gold-500/10" 
@@ -89,7 +81,7 @@ export default function Packages() {
               {categories.map(c => (
                 <button
                   key={c.value}
-                  onClick={() => setCategory(c.value as ListPackagesCategory)}
+                  onClick={() => setCategory(c.value)}
                   className={`px-4 py-2 text-sm border transition-all ${
                     category === c.value 
                       ? "border-gold-500 text-gold-500 bg-gold-500/10" 
@@ -104,13 +96,7 @@ export default function Packages() {
         </div>
 
         {/* RESULTS */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="h-[450px] bg-card animate-pulse border border-white/5"></div>
-            ))}
-          </div>
-        ) : packages.length > 0 ? (
+        {packages.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {packages.map((pkg, i) => (
               <PackageCard key={pkg.id} pkg={pkg} index={i} />

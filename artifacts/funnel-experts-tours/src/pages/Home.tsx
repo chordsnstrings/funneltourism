@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { useListPackages } from "@workspace/api-client-react";
+import { getFeaturedPackages } from "@/lib/packages-data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PackageCard } from "@/components/PackageCard";
 import { SEO } from "@/components/SEO";
@@ -9,10 +9,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
-  const { data: packagesRes, isLoading } = useListPackages();
-  const packages = packagesRes?.data || [];
-  
-  const featuredPackages = packages.filter(p => p.isPopular).slice(0, 3);
+  const featuredPackages = getFeaturedPackages(3);
 
   const partners = [
     {
@@ -111,19 +108,11 @@ export default function Home() {
             </Link>
           </div>
 
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="h-96 bg-card animate-pulse border border-white/5"></div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredPackages.map((pkg, i) => (
-                <PackageCard key={pkg.id} pkg={pkg} index={i} />
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredPackages.map((pkg, i) => (
+              <PackageCard key={pkg.id} pkg={pkg} index={i} />
+            ))}
+          </div>
         </div>
       </section>
 
